@@ -10,7 +10,6 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
-from sklearn.feature_selection import SelectFromModel
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix
@@ -19,8 +18,8 @@ import pickle
 #%%
 Train_set = pd.read_csv("train.csv")
 Test_set = pd.read_csv("test.csv")
-Ori_Train = Train_set
-Ori_Test = Test_set
+#Ori_Train = Train_set
+#Ori_Test = Test_set
 pd.set_option('display.max_columns', None)
 Train_set.head(8)
 Train_set = Train_set.drop(['Id'], axis = 1)
@@ -100,13 +99,6 @@ for i,j,corr in sorted_high_corr:
     sns.pairplot(data = Train_set, hue='Cover_Type', size= 5, x_vars=cols[i], y_vars=cols[j])
     plt.show()
 
-"""
-From Visualizations we observe that:
-1.Hillshade patterns give a ellipsoid patterns
-2.Aspect and Hillshades attributes form a sigmoid pattern
-3.Horizontal and vertical distance to hydrology give an almost 
-  linear pattern.
-"""
   
 #%% Combining the One-Hot Encoded Variables
 """
@@ -171,8 +163,6 @@ and compare the accuracies
 
 rf=RandomForestClassifier(n_estimators=300,class_weight='balanced',n_jobs=2,random_state=42)
 rf.fit(x_train,y_train)
-
-
 pred=rf.predict(x_test)
 confusion_matrix(pred,y_test)
 acc=rf.score(x_test,y_test)
@@ -198,6 +188,8 @@ and test our model accuracy
 #%% Feature selection
 
 """
+from sklearn.feature_selection import SelectFromModel
+
 colnames = Train_set.columns
 imp_fea = []
 for feature in zip(colnames, rf.feature_importances_):
@@ -237,6 +229,10 @@ res
 
 """
 #%% Into the pickle file
-s = pickle.dump(rf,open('Forest_Cover.pkl','wb'))
-#rf2 = pickle.loads(open('Forest_Cover.pkl','r') )
-#rf2.predict(Test_set[0:8])
+with open(r"model.pkl","wb") as output_file:
+    pickle.dump(rf,output_file)
+rf = pickle.load(open('model.pkl','rb'))
+#rf.predict(Test_set[0:8]) #pickle file is working properly
+
+model_columns = list(Train_set.columns)
+pickle.dump(model_columns, open('model_columns.pkl','wb'))

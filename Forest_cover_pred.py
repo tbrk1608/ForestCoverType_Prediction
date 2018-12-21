@@ -34,7 +34,6 @@ binary columns of data for qualitative independent
 variables such as wilderness areas and soil type.
 """
 
-#%%
 Train_set['Cover_Type'].value_counts()
 sns.countplot(data=Train_set,x=Train_set['Cover_Type'])
 """
@@ -173,7 +172,7 @@ and compare the accuracies
 rf=RandomForestClassifier(n_estimators=300,class_weight='balanced',n_jobs=2,random_state=42)
 rf.fit(x_train,y_train)
 
-"""
+
 pred=rf.predict(x_test)
 confusion_matrix(pred,y_test)
 acc=rf.score(x_test,y_test)
@@ -187,7 +186,7 @@ res
 #Result['Cover_Type']=res
 #Result.head()
 
-"""
+
 """
 So our model is about 86% accurate and in the next step feature 
 selection is done by taking top 20 important features.
@@ -197,6 +196,8 @@ and test our model accuracy
 
 """
 #%% Feature selection
+
+"""
 colnames = Train_set.columns
 imp_fea = []
 for feature in zip(colnames, rf.feature_importances_):
@@ -211,6 +212,7 @@ for i in sfm.get_support(indices=True):
     print(colnames[i])
 
 #Creating Test and Train Data sets using those TOP FEATURES
+    
 X_important_train = sfm.transform(x_train)
 X_important_test = sfm.transform(x_test)
 rf_important = RandomForestClassifier(n_estimators=300,class_weight='balanced', random_state=42, n_jobs=2)
@@ -220,16 +222,21 @@ confusion_matrix(y_important_pred,y_test)
 rf_important.score(X_important_test,y_test)
 
 """
+"""
 As can be seen by the accuracy scores, our original model which 
 contained all the features is 86.1% accurate while the our 
 top features model which contained only the top 20 features is 85.1% 
 accurate. Thus, for a 1% cost in accuracy we reduced the 
-number of features in the model and also improved the speed of the
-model 
+number of features in the model but I didnt find any appreciable
+training time difference between the two models
+"""
 """
 rf_important.fit(Train_set,y)
 res=rf_important.predict(Test_set)
 res
 
+"""
 #%% Into the pickle file
-
+s = pickle.dump(rf,open('Forest_Cover.pkl','wb'))
+#rf2 = pickle.loads(open('Forest_Cover.pkl','r') )
+#rf2.predict(Test_set[0:8])

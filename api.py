@@ -8,8 +8,8 @@ import numpy as np
 
 app = Flask(__name__)
 
-@app.route('/', methods = ['POST'])
-def index():
+@app.route('/predict', methods = ['POST'])
+def predict():
     """
     sample input:
         

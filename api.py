@@ -1,3 +1,7 @@
+"""
+api.py file that can be used along with Postman's ADE to handle the POST requests
+"""
+
 from flask import Flask, request, jsonify
 import pickle
 import numpy as np

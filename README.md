@@ -12,11 +12,19 @@ Source (Kaggle) : https://www.kaggle.com/c/forest-cover-type-prediction/data
 This repo is all about prediction of Forest Cover Type and contains:
 
 1.train.csv					- Training dataset
+
 2.test.csv					- Test dataset
+
 3.Forest_cover_pred.py		- contains EDA and RandomForest model in python
+
 4.api.py					- API file that can handle the POST requests using Postman's ADE
+
 5.model.kpl					- Our trained model converted into a pickle file
+
 6.model_columns.pkl			- Pickle file containing the column names that are necessary for prediciton
+
 7.sample_input.txt			- A sample input form that should be given when POST request is done in Postman
+
 8.plots (folder)			- Contains output plots from Forest_cover_pred.py
+
 and of course the README.md file

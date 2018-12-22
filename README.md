@@ -8,7 +8,9 @@ This test set runs to around 500,000 entries. This is a straightforward supervis
 Source (Kaggle) : https://www.kaggle.com/c/forest-cover-type-prediction/data
 
 ## Repo Description
+
 This repo is all about prediction of Forest Cover Type and contains:
+
 1.train.csv					- Training dataset
 2.test.csv					- Test dataset
 3.Forest_cover_pred.py		- contains EDA and RandomForest model in python

@@ -96,7 +96,7 @@ for i,j,corr in sorted_high_corr:
     
 #visualization
 for i,j,corr in sorted_high_corr:
-    sns.pairplot(data = Train_set, hue='Cover_Type', size = 5, x_vars=cols[i], y_vars=cols[j])
+    sns.pairplot(data = Train_set, hue='Cover_Type', height = 5, x_vars=cols[i], y_vars=cols[j])
     plt.show()
 
   
@@ -161,7 +161,7 @@ we will also perform feature selection and build another model
 and compare the accuracies 
 """
 
-rf=RandomForestClassifier(n_estimators=300,class_weight='balanced',n_jobs=2,random_state=42)
+rf=RandomForestClassifier(n_estimators=150,class_weight='balanced',n_jobs=2,random_state=42)
 rf.fit(x_train,y_train)
 pred=rf.predict(x_test)
 confusion_matrix(pred,y_test)
@@ -210,7 +210,7 @@ for i in sfm.get_support(indices=True):
     
 X_important_train = sfm.transform(x_train)
 X_important_test = sfm.transform(x_test)
-rf_important = RandomForestClassifier(n_estimators=300,class_weight='balanced', random_state=42, n_jobs=2)
+rf_important = RandomForestClassifier(n_estimators=150,class_weight='balanced', random_state=42, n_jobs=2)
 rf_important.fit(X_important_train, y_train)
 y_important_pred = rf_important.predict(X_important_test)
 confusion_matrix(y_important_pred,y_test)
@@ -233,7 +233,7 @@ res
 """
 #%% Into the pickle file
 with open(r"model.pkl","wb") as output_file:
-    pickle.dump(rf,output_file)
+    pickle.dump(rf,output_file,-1)
 #rf2 = pickle.load(open('model.pkl','rb'))
 #rf2.predict(Test_set[0:8]) #pickle file is working properly
 

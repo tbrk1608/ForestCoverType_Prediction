@@ -49,7 +49,7 @@ We can drop those.
 Train_set = Train_set.drop(['Soil_Type7', 'Soil_Type15'], axis = 1)
 Test_set = Test_set.drop(['Soil_Type7', 'Soil_Type15'], axis = 1)
 
-#%% Vislaizations
+#%% Visualizations
 colnames = Train_set.columns
 
 
@@ -65,7 +65,7 @@ for i in colnames[0:10]:
     
 """
 From Visualizations we observe that:
-1.Elevation seems to be an important attribute for prediction as 
+1.Elevation seems to be an important factor for prediction as 
   each Cover_Type has different type of distribution
 2.Aspect and slope plots shows normal distribution for most of the 
   classes
@@ -96,7 +96,7 @@ for i,j,corr in sorted_high_corr:
     
 #visualization
 for i,j,corr in sorted_high_corr:
-    sns.pairplot(data = Train_set, hue='Cover_Type', size= 5, x_vars=cols[i], y_vars=cols[j])
+    sns.pairplot(data = Train_set, hue='Cover_Type', size = 5, x_vars=cols[i], y_vars=cols[j])
     plt.show()
 
   
@@ -168,9 +168,10 @@ confusion_matrix(pred,y_test)
 acc=rf.score(x_test,y_test)
 print(acc)
 
-rf.fit(Train_set,y)
-res=rf.predict(Test_set)
-res
+
+#rf.fit(Train_set,y)
+#res=rf.predict(Test_set)
+#res
 
 #Result=pd.DataFrame(Id)
 #Result['Cover_Type']=res
@@ -186,6 +187,8 @@ and test our model accuracy
 
 """
 #%% Feature selection
+
+#Please remove the comment quotes, in case if u need to run the feature selection model
 
 """
 from sklearn.feature_selection import SelectFromModel
@@ -231,8 +234,8 @@ res
 #%% Into the pickle file
 with open(r"model.pkl","wb") as output_file:
     pickle.dump(rf,output_file)
-rf = pickle.load(open('model.pkl','rb'))
-#rf.predict(Test_set[0:8]) #pickle file is working properly
+#rf2 = pickle.load(open('model.pkl','rb'))
+#rf2.predict(Test_set[0:8]) #pickle file is working properly
 
 model_columns = list(Train_set.columns)
 pickle.dump(model_columns, open('model_columns.pkl','wb'))
